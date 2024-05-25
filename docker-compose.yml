@@ -1,0 +1,14 @@
+services:
+  pizzashop-api:
+    container_name: pizzashop-api
+    image: bitnami/postgresql:latest
+    ports:
+      - 5432:5432
+    environment: 
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DB=pizzashopapi
+    volumes:
+        - postgresql-data-pizzashop:/bitnami/postgresql
+volumes:
+  postgresql-data-pizzashop:
