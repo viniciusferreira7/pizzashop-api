@@ -1,12 +1,10 @@
 import { defineConfig } from "drizzle-kit";
-import { env } from './src/env';
-import en from 'zod/locales/en.js';
 
 export default defineConfig({
   dialect: "postgresql",
   schema: "./src/db/schema/index.ts",
   out: "./drizzle",
   dbCredentials: {
-    url: env.DB_URL
+    url: process.env.DB_URL ?? '' //FIXME: should use env from env schema instead of process.env, but happen an error 
   }
 });
