@@ -2,12 +2,14 @@
 import { faker } from '@faker-js/faker'
 import chalk from 'chalk'
 
+import { env } from '../env'
 import { db } from './connection'
-import { restaurants, users } from './schema'
+import { authLinks, restaurants, users } from './schema'
 
 // Reset database
 
 await db.delete(users)
+await db.delete(authLinks)
 await db.delete(restaurants)
 
 console.log(chalk.yellow('✔️ Database was reset!'))
@@ -36,7 +38,7 @@ const [manager] = await db
   .values([
     {
       name: faker.person.fullName(),
-      email: 'admin@admin.com',
+      email: env.EMAIL_DEV,
       role: 'manager',
     },
   ])
