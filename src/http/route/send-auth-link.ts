@@ -35,7 +35,7 @@ export const sendAuthLink = new Elysia().post(
 
     resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: env.EMAIL_DEV,
+      to: env.EMAIL_DEV ?? userFromEmail.email,
       subject: 'Pizza shop',
       html: `<a href=${authLink} target="_blank" rel="noopener noreferrer">${authLink}</a>`,
     })

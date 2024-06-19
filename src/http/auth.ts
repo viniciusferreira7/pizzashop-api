@@ -15,18 +15,30 @@ export const auth = new Elysia()
       schema: jwtPayload,
     }),
   )
-  .derive({ as: 'global' }, ({ jwt, cookie: { auth } }) => {
+  .derive({ as: 'global' }, ({ jwt, cookie }) => {
     return {
       signUser: async (payload: Static<typeof jwtPayload>) => {
         const token = await jwt.sign(payload)
 
-        auth.value = token
-        auth.httpOnly = true
-        auth.maxAge = 60 * 60 * 24 * 7 // 7 days
-        auth.path = '/'
+        cookie.auth.value = token
+        // cookie.auth.httpOnly = true
+        cookie.auth.maxAge = 60 * 60 * 24 * 7 // 7 days
+        cookie.auth.path = '/'
       },
       signOut: () => {
-        auth.remove()
+        cookie.auth.remove()
+      },
+      getCurrentProfile: async () => {
+        const payload = await jwt.verify(cookie.auth.value)
+
+        if (!payload) {
+          throw new Error('Unauthorized.')
+        }
+
+        return {
+          userId: payload.sub,
+          restaurantId: payload.restaurantId,
+        }
       },
     }
   })
