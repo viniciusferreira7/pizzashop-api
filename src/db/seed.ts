@@ -151,6 +151,8 @@ for (let i = 0; i < 200; i++) {
   })
 }
 
+console.log(orderItemsToInsert[0])
+
 await db.insert(orders).values(ordersToInsert)
 
 await db.insert(orderItems).values(orderItemsToInsert)
