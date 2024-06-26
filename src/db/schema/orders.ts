@@ -22,7 +22,7 @@ export const orders = pgTable('orders', {
   restaurantId: text('restaurant_id')
     .notNull()
     .references(() => restaurants.id, {
-      onDelete: 'set null',
+      onDelete: 'cascade',
     }),
   status: orderStatusEnum('status').default('pending').notNull(),
   totalInCents: integer('total_in_cents').notNull(),
