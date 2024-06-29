@@ -33,7 +33,7 @@ export const auth = new Elysia()
         const token = await jwt.sign(payload)
 
         cookie.auth.value = token
-        // cookie.auth.httpOnly = true
+        cookie.auth.httpOnly = true
         cookie.auth.maxAge = 60 * 60 * 24 * 7 // 7 days
         cookie.auth.path = '/'
       },
