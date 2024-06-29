@@ -2,6 +2,9 @@ import { Elysia } from 'elysia'
 
 import { approveOrder } from './route/approve-order'
 import { authenticateFromLink } from './route/authenticate-from-link'
+import { cancelOrder } from './route/cancel-order'
+import { deliverOrder } from './route/deliver-order'
+import { dispatchOrder } from './route/dispatch-order'
 import { getManagedRestaurant } from './route/get-managed-restaurant'
 import { getOrderDetails } from './route/get-order-details'
 import { getProfile } from './route/get-profile'
@@ -18,6 +21,9 @@ const app = new Elysia()
   .use(getManagedRestaurant)
   .use(getOrderDetails)
   .use(approveOrder)
+  .use(cancelOrder)
+  .use(deliverOrder)
+  .use(dispatchOrder)
   .onError(({ error, code, set }) => {
     switch (code) {
       case 'VALIDATION':
