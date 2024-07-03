@@ -1,4 +1,4 @@
-import { and, count, eq, getTableColumns, ilike } from 'drizzle-orm'
+import { and, count, eq, ilike } from 'drizzle-orm'
 import { createSelectSchema } from 'drizzle-typebox'
 import { Elysia, t } from 'elysia'
 
@@ -18,10 +18,14 @@ export const getOrders = new Elysia().use(auth).get(
 
     const { customerName, orderId, status, pageIndex } = query
 
-    const orderTableColumns = getTableColumns(orders)
-
     const baseQuery = db
-      .select(orderTableColumns)
+      .select({
+        orderId: orders.id,
+        createAt: orders.createdAt,
+        status: orders.status,
+        total: orders.totalInCents,
+        customerName: users.name,
+      })
       .from(orders)
       .innerJoin(users, eq(users.id, orders.customerId))
       .where(

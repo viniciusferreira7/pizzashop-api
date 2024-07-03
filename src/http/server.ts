@@ -35,6 +35,8 @@ const app = new Elysia()
           message: 'Validation failed.',
           error: error.toResponse(),
         }
+      case 'NOT_FOUND':
+        return new Response(null, { status: 404 })
       default:
         console.log(error)
 

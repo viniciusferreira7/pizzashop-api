@@ -151,7 +151,7 @@ for (let i = 0; i < 200; i++) {
   })
 }
 
-console.log(ordersToInsert.find((item) => item.status === 'pending'))
+console.log(ordersToInsert.find((item) => item.status === 'processing'))
 
 await db.insert(orders).values(ordersToInsert)
 

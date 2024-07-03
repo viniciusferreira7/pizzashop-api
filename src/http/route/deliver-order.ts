@@ -28,7 +28,7 @@ export const deliverOrder = new Elysia().use(auth).patch(
       return { message: 'Order not found.' }
     }
 
-    if (order.status !== 'pending') {
+    if (order.status !== 'delivering') {
       set.status = 400
 
       return {
