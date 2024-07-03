@@ -1,4 +1,4 @@
-import { and, count, eq, ilike } from 'drizzle-orm'
+import { and, count, desc, eq, ilike, sql } from 'drizzle-orm'
 import { createSelectSchema } from 'drizzle-typebox'
 import { Elysia, t } from 'elysia'
 
@@ -43,7 +43,19 @@ export const getOrders = new Elysia().use(auth).get(
         .select()
         .from(baseQuery.as('baseQuery'))
         .offset(pageIndex * 10)
-        .limit(10),
+        .limit(10)
+        .orderBy((fields) => {
+          return [
+            sql`CASE ${fields.status} 
+            WHEN 'pending' THEN 1
+            WHEN 'processing' THEN 2
+            WHEN 'delivering' THEN 3
+            WHEN 'delivered' THEN 4
+            WHEN 'canceled' THEN 99
+            END`,
+            desc(fields.createAt),
+          ]
+        }),
     ])
 
     const amountOfOrders = amountOfOrdersQuery[0].count
