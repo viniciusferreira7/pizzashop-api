@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@elysiajs/jwt": "^1.0.2",
+    "@elysiajs/swagger": "^1.0.5",
     "@paralleldrive/cuid2": "^2.2.2",
     "dayjs": "^1.11.11",
     "drizzle-orm": "^0.30.10",

@@ -1,3 +1,4 @@
+import { swagger } from '@elysiajs/swagger'
 import { Elysia } from 'elysia'
 
 import { approveOrder } from './route/approve-order'
@@ -6,6 +7,7 @@ import { cancelOrder } from './route/cancel-order'
 import { deliverOrder } from './route/deliver-order'
 import { dispatchOrder } from './route/dispatch-order'
 import { getManagedRestaurant } from './route/get-managed-restaurant'
+import { getMonthReceipt } from './route/get-month-receipt'
 import { getOrderDetails } from './route/get-order-details'
 import { getOrders } from './route/get-orders'
 import { getProfile } from './route/get-profile'
@@ -14,6 +16,7 @@ import { sendAuthLink } from './route/send-auth-link'
 import { signOut } from './route/sign-out'
 
 const app = new Elysia()
+  .use(swagger())
   .use(registerRestaurant)
   .use(sendAuthLink)
   .use(authenticateFromLink)
@@ -26,6 +29,7 @@ const app = new Elysia()
   .use(deliverOrder)
   .use(dispatchOrder)
   .use(getOrders)
+  .use(getMonthReceipt)
   .onError(({ error, code, set }) => {
     switch (code) {
       case 'VALIDATION':
