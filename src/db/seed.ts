@@ -113,8 +113,6 @@ const ordersToInsert: OrdersToInsert[] = []
 for (let i = 0; i < 200; i++) {
   const orderId = createId()
 
-  // FIXME: error on generation of seed
-
   const orderProducts = faker.helpers.arrayElements(availableProducts, {
     min: 1,
     max: 3,
