@@ -18,5 +18,5 @@ export const getManagedRestaurant = new Elysia()
       },
     })
 
-    return { managedRestaurant }
+    return managedRestaurant
   })
