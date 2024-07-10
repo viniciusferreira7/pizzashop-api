@@ -15,6 +15,7 @@
     "lint": "eslint --fix src --ext .ts"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.0.4",
     "@elysiajs/jwt": "^1.0.2",
     "@elysiajs/swagger": "^1.0.5",
     "@paralleldrive/cuid2": "^2.2.2",

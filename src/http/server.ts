@@ -1,6 +1,8 @@
-import { swagger } from '@elysiajs/swagger'
+import { cors } from '@elysiajs/cors'
+import swagger from '@elysiajs/swagger'
 import { Elysia } from 'elysia'
 
+import { env } from '../env'
 import { approveOrder } from './route/approve-order'
 import { authenticateFromLink } from './route/authenticate-from-link'
 import { cancelOrder } from './route/cancel-order'
@@ -14,7 +16,7 @@ import { getMonthOrdersAmount } from './route/get-month-orders-amount'
 import { getMonthReceipt } from './route/get-month-receipt'
 import { getOrderDetails } from './route/get-order-details'
 import { getOrders } from './route/get-orders'
-import { getPopularProducts, getPopularProducts } from './route/get-popular-products'
+import { getPopularProducts } from './route/get-popular-products'
 import { getProfile } from './route/get-profile'
 import { registerRestaurant } from './route/register-restaurant'
 import { sendAuthLink } from './route/send-auth-link'
@@ -22,6 +24,13 @@ import { signOut } from './route/sign-out'
 
 const app = new Elysia()
   .use(swagger())
+  .use(
+    cors({
+      origin: env.AUTH_REDIRECT_URL,
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    }),
+  )
   .use(registerRestaurant)
   .use(sendAuthLink)
   .use(authenticateFromLink)
